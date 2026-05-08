@@ -22,6 +22,21 @@ If port 8000 is already in use on your machine:
 PORT=8001 docker compose up --build
 ```
 
+Then open http://localhost:8001 instead.
+
+If you get `Bind for 0.0.0.0:8000 failed: port is already allocated`, find and stop whatever is using it:
+
+```bash
+# Mac / Linux
+lsof -i :8000
+
+# or find a Docker container holding the port
+docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}" | grep 8000
+
+# stop that container
+docker stop <container_name>
+```
+
 ---
 
 ## How to download your document
