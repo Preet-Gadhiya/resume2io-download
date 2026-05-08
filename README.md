@@ -16,6 +16,12 @@ docker compose up --build
 
 Open http://localhost:8000
 
+If port 8000 is already in use on your machine:
+
+```bash
+PORT=8001 docker compose up --build
+```
+
 ---
 
 ## How to download your document
