@@ -1,225 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <title>resume2io-download</title>
-    <style>
-        *, *::before, *::after { box-sizing: border-box; }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>resume2io-download</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            font-family: "Inter", sans-serif;
-            margin: 0;
-            background: #f7f8fa;
-            color: #1c1c1c;
-        }
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f5f5f5;
+      color: #111;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
 
-        .container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            padding: 2rem;
-        }
+    .card {
+      background: #fff;
+      border: 1px solid #e4e4e7;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
 
-        .card {
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 2rem 2.5rem;
-            width: 100%;
-            max-width: 480px;
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
+    .header h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
 
-        h1 { font-size: 1.6rem; margin: 0; }
-        h2 { font-size: 1rem; margin: 0; font-weight: 500; color: #555; }
+    .header p {
+      margin-top: 0.3rem;
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.5;
+    }
 
-        .field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-        }
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      background: #f4f4f5;
+      border-radius: 8px;
+      padding: 3px;
+    }
 
-        label { font-size: 0.8rem; font-weight: 500; color: #444; }
+    .tab {
+      flex: 1;
+      padding: 0.45rem;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      font-family: "Inter", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #666;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
 
-        input[type=text] {
-            width: 100%;
-            padding: 0.65rem 0.85rem;
-            border-radius: 6px;
-            border: 1px solid #d1d5db;
-            font-family: "Inter", sans-serif;
-            font-size: 0.95rem;
-        }
+    .tab.active {
+      background: #fff;
+      color: #111;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
 
-        input[type=text]:focus {
-            outline: none;
-            border-color: #4a90d9;
-            box-shadow: 0 0 0 3px rgba(74,144,217,0.15);
-        }
+    .fields {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
 
-        .hint {
-            font-size: 0.72rem;
-            color: #888;
-            line-height: 1.4;
-        }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
 
-        .hint code {
-            background: #f1f3f5;
-            padding: 1px 4px;
-            border-radius: 3px;
-            font-size: 0.72rem;
-        }
+    label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #444;
+    }
 
-        .btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-            border-radius: 6px;
-            border: none;
-            font-size: 0.95rem;
-            font-family: "Inter", sans-serif;
-            background-color: #1c1c1c;
-            color: #fff;
-            cursor: pointer;
-            padding: 0.75rem 1.5rem;
-            width: 100%;
-            transition: opacity 0.15s;
-        }
+    input {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid #d4d4d8;
+      border-radius: 7px;
+      font-family: "Inter", sans-serif;
+      font-size: 0.9rem;
+      color: #111;
+      background: #fff;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
 
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-        .btn:hover:not(:disabled) { opacity: 0.85; }
+    input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+    }
 
-        .error {
-            display: none;
-            color: #dc2626;
-            font-size: 0.78rem;
-        }
+    input.error {
+      border-color: #ef4444;
+    }
 
-        .spinner {
-            transform-origin: center;
-            animation: spin 2s linear infinite;
-        }
-        .spinner circle {
-            stroke-linecap: round;
-            animation: dash 1.5s ease-in-out infinite;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes dash {
-            0%   { stroke-dasharray: 0 150; stroke-dashoffset: 0; }
-            47.5%{ stroke-dasharray: 42 150; stroke-dashoffset: -16; }
-            95%, 100% { stroke-dasharray: 42 150; stroke-dashoffset: -59; }
-        }
+    .hint {
+      font-size: 0.72rem;
+      color: #999;
+      line-height: 1.45;
+    }
 
-        .divider {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #aaa;
-            position: relative;
-        }
-        .divider::before, .divider::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            width: 38%;
-            border-top: 1px solid #e5e7eb;
-        }
-        .divider::before { left: 0; }
-        .divider::after  { right: 0; }
-    </style>
+    .hint code {
+      background: #f4f4f5;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      color: #555;
+    }
+
+    .err-msg {
+      font-size: 0.78rem;
+      color: #ef4444;
+      display: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 0.65rem;
+      border: none;
+      border-radius: 7px;
+      background: #111;
+      color: #fff;
+      font-family: "Inter", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: opacity 0.15s;
+    }
+
+    .btn:hover:not(:disabled) { opacity: 0.82; }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .footer {
+      text-align: center;
+      font-size: 0.72rem;
+      color: #bbb;
+    }
+
+    .footer a {
+      color: #999;
+      text-decoration: none;
+    }
+
+    .footer a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
-<div class="container">
-    <div class="card">
-        <h1>resume2io-download</h1>
-        <h2>Download your resume.io resume as PDF</h2>
+<div class="card">
+  <div class="header">
+    <h1>resume2io-download</h1>
+    <p>Download your resume.io document as PDF. Works on free accounts.</p>
+  </div>
 
-        <div class="field">
-            <label for="resume_id">Resume ID</label>
-            <input type="text" id="resume_id" placeholder="e.g. 69570346" inputmode="numeric">
-            <span class="hint">
-                Found in the URL when editing your resume:<br>
-                <code>resume.io/app/resumes/<strong>69570346</strong>/edit</code>
-            </span>
-        </div>
+  <div class="tabs">
+    <button class="tab active" data-type="resume">Resume</button>
+    <button class="tab" data-type="cover_letter">Cover Letter</button>
+  </div>
 
-        <div class="field">
-            <label for="session_id">Session Cookie (<code>_session_id</code>)</label>
-            <input type="text" id="session_id" placeholder="Paste your _session_id value">
-            <span class="hint">
-                Open DevTools on resume.io → Application tab → Cookies →
-                <code>https://resume.io</code> → copy the value of <code>_session_id</code>
-            </span>
-        </div>
-
-        <span class="error" id="form-error">Resume ID and session cookie are both required.</span>
-
-        <button class="btn" id="download-btn" type="button">
-            <span id="btn-text">Download PDF</span>
-            <svg id="btn-spinner" style="display:none" width="20" height="20" stroke="#fff" viewBox="0 0 24 24">
-                <g class="spinner"><circle cx="12" cy="12" r="9.5" fill="none" stroke-width="3"></circle></g>
-            </svg>
-        </button>
+  <div class="fields">
+    <div class="field">
+      <label for="doc-id">Document ID</label>
+      <input type="text" id="doc-id" placeholder="e.g. 69570346" inputmode="numeric" autocomplete="off">
+      <span class="hint" id="id-hint">
+        Found in the URL when editing: <code>resume.io/app/resumes/<strong>69570346</strong>/edit</code>
+      </span>
     </div>
+
+    <div class="field">
+      <label for="session-id">Session Cookie <code>_session_id</code></label>
+      <input type="password" id="session-id" placeholder="Paste your _session_id value" autocomplete="off">
+      <span class="hint">
+        DevTools (F12) on resume.io &rarr; Application &rarr; Cookies &rarr; copy <code>_session_id</code>
+      </span>
+    </div>
+  </div>
+
+  <span class="err-msg" id="err-msg">Resume ID and session cookie are both required.</span>
+
+  <button class="btn" id="download-btn">
+    <span id="btn-label">Download PDF</span>
+    <div class="spinner" id="spinner"></div>
+  </button>
+
+  <div class="footer">
+    <a href="https://github.com/Preet-Gadhiya/resume2io-download" target="_blank">View on GitHub</a>
+  </div>
 </div>
 
 <script>
-    document.getElementById('download-btn').addEventListener('click', async function () {
-        const resumeId  = document.getElementById('resume_id').value.trim();
-        const sessionId = document.getElementById('session_id').value.trim();
-        const errEl     = document.getElementById('form-error');
+  const tabs = document.querySelectorAll('.tab');
+  const idHint = document.getElementById('id-hint');
+  let docType = 'resume';
 
-        if (!resumeId || !sessionId) {
-            errEl.style.display = 'block';
-            return;
-        }
-        errEl.style.display = 'none';
-
-        const btn     = document.getElementById('download-btn');
-        const btnText = document.getElementById('btn-text');
-        const spinner = document.getElementById('btn-spinner');
-
-        btn.disabled        = true;
-        btnText.style.display = 'none';
-        spinner.style.display = 'block';
-
-        try {
-            const resp = await fetch('/download/' + resumeId, {
-                method: 'POST',
-                headers: { 'X-Session-Id': sessionId }
-            });
-
-            if (!resp.ok) {
-                const err = await resp.json().catch(() => ({ detail: 'Unknown error' }));
-                errEl.textContent = 'Error: ' + (err.detail || resp.status);
-                errEl.style.display = 'block';
-                return;
-            }
-
-            const blob = await resp.blob();
-            const url  = URL.createObjectURL(blob);
-            const a    = document.createElement('a');
-            a.href     = url;
-            a.download = resumeId + '.pdf';
-            a.click();
-            URL.revokeObjectURL(url);
-        } catch (err) {
-            errEl.textContent = 'Request failed: ' + err.message;
-            errEl.style.display = 'block';
-        } finally {
-            btn.disabled        = false;
-            btnText.style.display = 'block';
-            spinner.style.display = 'none';
-        }
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      docType = tab.dataset.type;
+      if (docType === 'cover_letter') {
+        idHint.innerHTML = 'Found in the URL when editing: <code>resume.io/app/cover-letters/<strong>12345678</strong>/edit</code>';
+      } else {
+        idHint.innerHTML = 'Found in the URL when editing: <code>resume.io/app/resumes/<strong>69570346</strong>/edit</code>';
+      }
     });
+  });
+
+  document.getElementById('download-btn').addEventListener('click', async () => {
+    const docId     = document.getElementById('doc-id').value.trim();
+    const sessionId = document.getElementById('session-id').value.trim();
+    const errEl     = document.getElementById('err-msg');
+    const btn       = document.getElementById('download-btn');
+    const label     = document.getElementById('btn-label');
+    const spinner   = document.getElementById('spinner');
+
+    document.getElementById('doc-id').classList.remove('error');
+    document.getElementById('session-id').classList.remove('error');
+    errEl.style.display = 'none';
+
+    if (!docId || !sessionId) {
+      if (!docId) document.getElementById('doc-id').classList.add('error');
+      if (!sessionId) document.getElementById('session-id').classList.add('error');
+      errEl.textContent = 'Resume ID and session cookie are both required.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    if (!/^\d+$/.test(docId)) {
+      document.getElementById('doc-id').classList.add('error');
+      errEl.textContent = 'Document ID should be numbers only.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    btn.disabled     = true;
+    label.textContent = 'Generating...';
+    spinner.style.display = 'block';
+
+    try {
+      const resp = await fetch(`/download/${docType}/${docId}`, {
+        method: 'POST',
+        headers: { 'X-Session-Id': sessionId },
+      });
+
+      if (!resp.ok) {
+        const data = await resp.json().catch(() => ({}));
+        errEl.textContent = data.detail || `Error ${resp.status}. Check your session cookie and document ID.`;
+        errEl.style.display = 'block';
+        return;
+      }
+
+      const blob = await resp.blob();
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = `${docType}_${docId}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      errEl.textContent = 'Request failed. Make sure the server is running.';
+      errEl.style.display = 'block';
+    } finally {
+      btn.disabled      = false;
+      label.textContent  = 'Download PDF';
+      spinner.style.display = 'none';
+    }
+  });
 </script>
 </body>
 </html>

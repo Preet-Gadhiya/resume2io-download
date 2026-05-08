@@ -1,8 +1,8 @@
 # resume2io-download
 
-Download your [resume.io](https://resume.io) resume as a PDF. Works on free accounts.
+Download your [resume.io](https://resume.io) resume or cover letter as a PDF. Works on free accounts.
 
-resume.io puts PDF export behind a paywall. This tool spins up a headless browser, loads your resume editor with your session cookie, screenshots each page from the canvas, and saves it as a PDF.
+resume.io puts PDF export behind a paywall. This tool opens your document editor in a headless browser, waits for the canvas to render, screenshots each page, and saves it as a PDF.
 
 ---
 
@@ -11,24 +11,23 @@ resume.io puts PDF export behind a paywall. This tool spins up a headless browse
 ```bash
 git clone https://github.com/Preet-Gadhiya/resume2io-download.git
 cd resume2io-download
-docker build -t resume2io-download .
-docker run -p 8000:8000 resume2io-download
+docker compose up --build
 ```
 
 Open http://localhost:8000
 
 ---
 
-## How to download your resume
+## How to download your document
 
-### Step 1: Find your Resume ID
+### Step 1: Find your Document ID
 
-Open your resume in the editor and look at the URL:
+Open your resume or cover letter in the editor and look at the URL:
 
 ```
 https://resume.io/app/resumes/69570346/edit
                               ^^^^^^^^
-                              this is your resume ID
+                              this is your document ID
 ```
 
 ### Step 2: Get your session cookie
@@ -39,7 +38,7 @@ You need the `_session_id` cookie value from your browser while logged in to res
 1. Go to resume.io and log in
 2. Open DevTools (F12 or right-click -> Inspect)
 3. Go to the **Application** tab
-4. In the left sidebar, expand **Cookies** and click `https://resume.io`
+4. In the left sidebar expand **Cookies** and click `https://resume.io`
 5. Find `_session_id` and copy the value
 
 **Firefox:**
@@ -47,27 +46,32 @@ You need the `_session_id` cookie value from your browser while logged in to res
 2. Expand **Cookies** -> `https://resume.io`
 3. Copy the value of `_session_id`
 
-The cookie expires when you log out or after roughly 30 days. If you get a 401 error, just grab a fresh one.
+The cookie expires when you log out or after roughly 30 days. If you get a 401 error, grab a fresh one.
 
 ### Step 3: Download
 
 1. Open http://localhost:8000
-2. Enter your resume ID (just the numbers, e.g. `69570346`)
-3. Paste your `_session_id` value
-4. Click **Download PDF**
+2. Pick **Resume** or **Cover Letter**
+3. Enter your document ID
+4. Paste your `_session_id` value
+5. Click **Download PDF**
 
-It takes around 15-30 seconds while the browser renders the resume. The PDF will download automatically.
+Takes around 15-30 seconds while the browser renders the document.
 
 ---
 
 ## API
 
-If you prefer curl:
-
 ```bash
-curl -X POST "http://localhost:8000/download/69570346" \
+# Resume
+curl -X POST "http://localhost:8000/download/resume/69570346" \
   -H "X-Session-Id: your_session_id_here" \
   -o resume.pdf
+
+# Cover letter
+curl -X POST "http://localhost:8000/download/cover_letter/12345678" \
+  -H "X-Session-Id: your_session_id_here" \
+  -o cover_letter.pdf
 ```
 
 ---
@@ -86,4 +90,4 @@ python app/main.py
 
 ## Disclaimer
 
-This is for downloading your own resume. Please use it responsibly.
+This is for downloading your own documents. Please use it responsibly.

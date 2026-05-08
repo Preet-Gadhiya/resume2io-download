@@ -1,7 +1,7 @@
 [project]
 name = "resume2io-download"
 version = "1.0.0"
-description = "Download your resume from resume.io as a PDF — works on free accounts"
+description = "Download resume.io documents as PDF without a subscription"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -10,10 +10,9 @@ dependencies = [
     "pillow==12.2.0",
     "playwright>=1.44.0",
     "pypdf==6.10.0",
-    "requests==2.33.1",
     "uvicorn==0.44.0",
 ]
 
 [tool.ruff]
 line-length = 120
-lint.select = ["F", "E", "W", "I", "N", "COM", "Q"]
+lint.select = ["F", "E", "W", "I", "N"]
